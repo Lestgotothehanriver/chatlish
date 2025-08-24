@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>이메일 인증 완료 | chatchat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+    html,body{height:100%;margin:0;font-family:'Montserrat',sans-serif;background:#ffffff;color:#1e3c72;}
+
+    .container{height:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+
+    .card{background:#ffffff;border:1px solid #1e3c72;border-radius:24px;
+          padding:72px 56px;text-align:center;box-shadow:0 12px 24px rgba(0,0,0,.08);}
+
+    .card h1{font-size:3rem;margin:0 0 24px;letter-spacing:.5px;}
+    .card p{font-size:1.1rem;margin:0 0 8px;line-height:1.6;color:#444444;}
+
+    .btn{display:inline-block;padding:18px 48px;background:#1e3c72;color:#ffffff;
+         font-weight:700;border-radius:48px;text-decoration:none;transition:transform .2s,box-shadow .2s;}
+    .btn:hover{transform:translateY(-4px);box-shadow:0 6px 12px rgba(0,0,0,.15);}   
+
+    /* Confetti */
+    .confetti{position:absolute;width:10px;height:10px;opacity:0;animation:fall 3s linear infinite;}  
+    @keyframes fall{0%{transform:translateY(-120vh) rotate(0);opacity:1;}100%{transform:translateY(120vh) rotate(360deg);opacity:0;}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>인증 완료! 💙</h1>
+      <p>UNIWAY에 오신 것을 환영합니다.</p>
+      <p>지금 바로 로그인해서 새로운 세상을 만나보세요.</p>
+    </div>
+  </div>
+
+  <script>
+    /* 파란 Confetti 60개 */
+    const hueStart = 190; // blue range start
+    const hueEnd   = 230; // blue range end
+    for(let i=0;i<60;i++){
+      const d=document.createElement('div');
+      d.className='confetti';
+      d.style.left=Math.random()*100+'%';
+      const hue=hueStart+Math.random()*(hueEnd-hueStart);
+      d.style.background=`hsl(${hue},70%,65%)`;
+      d.style.animationDelay=Math.random()*3+'s';
+      d.style.animationDuration=2.5+Math.random()*1.5+'s';
+      d.style.transform=`rotate(${Math.random()*360}deg)`;
+      document.body.appendChild(d);
+    }
+  </script>
+</body>
+</html>
