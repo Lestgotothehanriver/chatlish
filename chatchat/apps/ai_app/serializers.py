@@ -65,23 +65,20 @@ class DescriptionDetailSerializer(serializers.ModelSerializer):
 
 class ChatMessageListItemSerializer(serializers.ModelSerializer):
     sender = UserMiniSerializer(read_only=True)
-    # 리스트용: 점수 요약만
-    description = DescriptionBriefSerializer(read_only=True)
+    description = DescriptionBriefSerializer(source="description.all", many=True, read_only=True)  # ✅
 
     class Meta:
         model = ChatMessage
         fields = ("id", "text", "created_at", "sender", "description")
-
 
 class ChatMessageDetailSerializer(serializers.ModelSerializer):
     sender = UserMiniSerializer(read_only=True)
     # 디테일용: 이유/레퍼런스까지 풀셋
-    description = DescriptionDetailSerializer(read_only=True)
+    description = DescriptionBriefSerializer(source="description.all", many=True, read_only=True)
 
     class Meta:
         model = ChatMessage
-        fields = ("id", "text", "created_at", "sender", "description")
-
+        fields = ("id", "text", "sender", "created_at", "description")
 
 class ConversationReportSerializer(serializers.ModelSerializer):
     user = UserMiniSerializer(read_only=True)

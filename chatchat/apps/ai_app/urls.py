@@ -5,6 +5,12 @@ from .views import (
     ChatRoomMessagesView,
     MessageDetailView,
     ChatRoomReportView,
+    ChatView,
+    ChatSessionGetView,
+    ChatSessionPostView,
+
+
+    
 )
 
 urlpatterns = [
@@ -12,4 +18,8 @@ urlpatterns = [
     path("report/messages/", ChatRoomMessagesView.as_view(), name="report-room-messages"),
     path("report/message/<int:message_id>/", MessageDetailView.as_view(), name="report-message-detail"),
     path("report/report/", ChatRoomReportView.as_view(), name="report-room-report"),
+    path("chat/", ChatView.as_view(), name="chat"),
+    path("session/get/", ChatSessionGetView.as_view(), name="chat-session-get"),
+    path("session/post/", ChatSessionPostView.as_view(), name="chat-session-post"),
+
 ]

@@ -16,7 +16,7 @@ from rest_framework.exceptions import ValidationError
 # ======================================================================
 # 프로젝트 모델 및 시리얼라이저 (첫 번째 파일)
 # ======================================================================
-from user.models import UserProfile as User
+from chatchat.apps.user_app.models import User
 from .models import ChatSession, Message, Citation
 from .serializers import ChatSerializer, MessageSerializer
 
@@ -673,9 +673,9 @@ class ChatRoomMessagesView(ListAPIView):
 
         room = get_object_or_404(ChatRoom, id=room_id)
         qs = (
-            room.messages.select_related("sender")
-            .select_related("description")
-            .prefetch_related("description__references")
+            room.messages
+            .select_related("sender")                          # 정방향 FK만 select_related
+            .prefetch_related("description", "description__references")  # 역방향은 prefetch
             .order_by("created_at")
         )
         return qs
@@ -693,11 +693,10 @@ class MessageDetailView(RetrieveAPIView):
 
     def get_queryset(self):
         return (
-            ChatMessage.objects.select_related("sender")
-            .select_related("description")
-            .prefetch_related("description__references")
-        )
-
+        ChatMessage.objects
+        .select_related("sender")
+        .prefetch_related("description", "description__references")  # ✅
+    )
 
 class ChatRoomReportView(APIView):
     """
